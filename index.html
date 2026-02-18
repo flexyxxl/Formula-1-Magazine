@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER NEXUS - Kelajak Bugun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffff00;
+            --deep-purple: #1a0033;
+            --dark-bg: #0a0015;
+            --grid-color: rgba(0, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Animated Grid Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+                linear-gradient(0deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Glowing Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-cyan);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-magenta);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 2s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-yellow);
+            top: 50%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 0, 21, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neon-cyan);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--neon-cyan);
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--neon-cyan)); }
+            50% { filter: drop-shadow(0 0 20px var(--neon-magenta)); }
+        }
+
+        nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            padding: 0 5%;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite, fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--neon-cyan)); }
+            33% { filter: drop-shadow(0 0 30px var(--neon-magenta)); }
+            66% { filter: drop-shadow(0 0 25px var(--neon-yellow)); }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            animation: fadeInUp 1.5s ease-out 0.3s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.5s ease-out 0.6s backwards;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(0, 255, 255, 0.8);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 50px rgba(0, 255, 255, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(26, 0, 51, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .feature-card:hover .feature-icon {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 2;
+            background: rgba(26, 0, 51, 0.4);
+            border-top: 1px solid var(--neon-magenta);
+            border-bottom: 1px solid var(--neon-magenta);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-yellow), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.6);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            mix-blend-mode: screen;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.6;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(26, 0, 51, 0.6);
+            padding: 4rem;
+            border-radius: 30px;
+            border: 1px solid var(--neon-cyan);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid var(--neon-cyan);
+            background: rgba(10, 0, 21, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--neon-cyan);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.2);
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .features-grid,
+            .stats-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--neon-magenta), var(--neon-yellow));
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="grid-background"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">CYBER◆NEXUS</div>
+        <nav>
+            <a href="#home">Bosh sahifa</a>
+            <a href="#features">Xususiyatlar</a>
+            <a href="#gallery">Galereya</a>
+            <a href="#contact">Aloqa</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>KELAJAK BUGUN BOSHLANADI</h1>
+            <p>Texnologiya, san'at va innovatsiyaning mukammal uyg'unligi</p>
+            <div class="cta-buttons">
+                <a href="#features" class="btn btn-primary">KASHF QILING</a>
+                <a href="#contact" class="btn btn-secondary">BOG'LANING</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features fade-in" id="features">
+        <h2 class="section-title">BIZNING KUCHIMIZ</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Tezkor Ishlash</h3>
+                <p>Kvant tezlikda ishlaydigan texnologiyalar bilan yangi tajriba. Har bir millisekundni qadrlang.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Kreativ Dizayn</h3>
+                <p>San'at va texnologiyaning mukammal birlashuvi. Har bir piksel aql-idrokni aks ettiradi.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Xavfsizlik</h3>
+                <p>Kriptografik himoya bilan ma'lumotlaringiz absolyut xavfsizlikda. Blockchain asosida ishlaymiz.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Global Tarmoq</h3>
+                <p>Dunyo bo'ylab taqsimlangan serverlar tarmog'i. Har qanday nuqtadan yuqori tezlik.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Innovatsiya</h3>
+                <p>Sun'iy intellekt va mashinali o'rganish algoritmlari. Kelajak texnologiyalari bugun.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3>Premium Sifat</h3>
+                <p>Mukammallikka intilish bizning falsafamiz. Har bir detal sinchkovlik bilan ishlab chiqilgan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats fade-in">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number" data-target="1000">0</span>
+                <span class="stat-label">Loyihalar</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="50000">0</span>
+                <span class="stat-label">Foydalanuvchilar</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="99">0</span>
+                <span class="stat-label">Ishlash vaqti %</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="24">0</span>
+                <span class="stat-label">Qo'llab-quvvatlash 7/24</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery fade-in" id="gallery">
+        <h2 class="section-title">RAQAMLI GALEREYA</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🎯</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🌌</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">⚛️</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🔮</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">💫</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-placeholder">🌠</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact fade-in" id="contact">
+        <div class="contact-content">
+            <h2 class="section-title">BOG'LANING</h2>
+            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem;">
+                Kelajakni birga quramiz. Sizning g'oyalaringiz bizning texnologiyamiz bilan birlashsin.
+            </p>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Ismingiz" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email manzilingiz" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Xabaringiz"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">YUBORISH</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="Twitter">🐦</a>
+            <a href="#" title="LinkedIn">💼</a>
+        </div>
+        <p style="color: rgba(255,255,255,0.6); font-size: 1rem;">
+            © 2026 CYBER NEXUS. Barcha huquqlar himoyalangan.
+        </p>
+    </footer>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const increment = target / speed;
+            let count = 0;
+
+            const updateCount = () => {
+                if (count < target) {
+                    count += increment;
+                    counter.textContent = Math.ceil(count);
+                    setTimeout(updateCount, 10);
+                } else {
+                    counter.textContent = target + (counter.parentElement.querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
+                }
+            };
+
+            updateCount();
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.stat-number');
+                    if (counter && !counter.classList.contains('counted')) {
+                        counter.classList.add('counted');
+                        animateCounter(counter);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-item').forEach(el => statsObserver.observe(el));
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Form Submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Xabaringiz qabul qilindi! Tez orada siz bilan bog\'lanamiz.');
+            e.target.reset();
+        });
+
+        // Parallax Effect for Orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                const xMove = (x - 0.5) * speed;
+                const yMove = (y - 0.5) * speed;
+                orb.style.transform = `translate(${xMove}px, ${yMove}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
